@@ -54,6 +54,11 @@ pub enum SimulatorEvent {
         /// The directionality of the scroll (normal or flipped)
         direction: MouseWheelDirection,
     },
+    /// Mouse move event
+    MouseMove {
+        /// The current mouse position
+        point: Point,
+    },
     /// An exit event
     Quit,
 }
@@ -252,6 +257,10 @@ impl SdlWindow {
                     scroll_delta: Point::new(x, y),
                     direction,
                 }),
+                Event::MouseMotion { x, y, .. } => {
+                    let point = map_input_to_point((x, y), scale, pixel_spacing);
+                    Some(SimulatorEvent::MouseMove { point })
+                }
                 _ => None,
             })
     }
