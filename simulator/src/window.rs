@@ -258,7 +258,7 @@ impl SdlWindow {
                     direction,
                 }),
                 Event::MouseMotion { x, y, .. } => {
-                    let point = map_input_to_point((x, y), scale, pixel_spacing);
+                    let point = output_settings.output_to_display(Point::new(x, y));
                     Some(SimulatorEvent::MouseMove { point })
                 }
                 _ => None,
